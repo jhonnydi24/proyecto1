@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmula Lavaplatos Líquido</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #1a5276;
+            border-bottom: 4px solid #5dade2;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 1.6rem;
+        }
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2471a3;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            border-left: 5px solid #5dade2;
+            padding-left: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #fff;
+        }
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border-bottom: 1px solid #eaf2f8;
+        }
+        th {
+            background-color: #1a5276;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        tr:nth-child(even) { background-color: #f9fbfe; }
+        tr:hover { background-color: #ebf5fb; }
+
+        .procedimiento {
+            background: #fdfefe;
+            padding: 10px 25px;
+            border: 1px solid #d4e6f1;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d35400; /* Color para tiempos y pH */
+        }
+        .note {
+            background-color: #fef9e7;
+            border-right: 4px solid #f1c40f;
+            padding: 15px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        @media (max-width: 600px) {
+            table { font-size: 0.8rem; }
+            .container { padding: 15px; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>LAVAPLATOS LÍQUIDO CONCENTRADO</h1>
+
+    <h2>Ingredientes y Proporciones</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Para 100 Litros</th>
+                <th>Para 1 Litro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Agua</td><td>87 Kilogramos</td><td>870 Gramos</td></tr>
+            <tr><td>Ácido sulfónico al 97% (Detergente)</td><td>4,5 Kilos</td><td>45 Gramos</td></tr>
+            <tr><td>Genapol en Pasta al 70% (Detergente espumante)</td><td>4,5 Kilos</td><td>45 Gramos</td></tr>
+            <tr><td>Dietanolamina</td><td>1 Kilo</td><td>10 Gramos</td></tr>
+            <tr><td>Soda líquida al 50%</td><td>1,2 Kilos</td><td>12 Gramos</td></tr>
+            <tr><td>Fragancia</td><td>100 Gramos</td><td>1 Gramo</td></tr>
+            <tr><td>Sal común (Espesante)</td><td>1,6 Kilos</td><td>16 Gramos</td></tr>
+            <tr><td>Color</td><td>Al gusto</td><td>Al gusto</td></tr>
+            <tr><td>Conservante</td><td>100 Gramos</td><td>1 Gramo</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Procedimiento de Fabricación</h2>
+    <div class="procedimiento">
+        <ol>
+            <li>Pesar 82 Kilogramos de agua en el tanque mezclador.</li>
+            <li>Agregar el <strong>ácido sulfónico</strong> y agitar hasta disolver completamente.</li>
+            <li>Agregar el <strong>Genapol en pasta</strong> y agitar hasta que no queden grumos.</li>
+            <li>Agregar <strong>dietanolamina</strong> y agitar hasta disolver.</li>
+            <li>Agregar la <strong>soda líquida</strong> lentamente. Agitar por <span class="highlight">5 minutos</span> y ajustar <span class="highlight">pH+ a 7-8</span>.</li>
+            <li><strong>Dejar reposar al menos <span class="highlight">24 horas</span>.</strong></li>
+            <li>Agregar la <strong>fragancia</strong> y agitar por <span class="highlight">5 minutos</span>.</li>
+            <li>Colocar el <strong>color</strong> y agitar por <span class="highlight">5 minutos</span>.</li>
+            <li>Disolver la <strong>sal</strong> en 5 kilogramos de agua aparte, añadir al tanque y agitar por <span class="highlight">30 minutos</span>.</li>
+            <li>Medir la viscosidad con una muestra de 0,5 kilos y ajustar con sal si es necesario, evitando sobresaturar.</li>
+            <li>Envasar.</li>
+        </ol>
+    </div>
+
+    <div class="note">
+        <strong>Nota Técnica:</strong> Recuerda verificar que el pH se mantenga entre 7 y 8 para evitar irritaciones en la piel del usuario final.
+    </div>
+</div>
+
+</body>
+</html>
