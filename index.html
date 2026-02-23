@@ -7,95 +7,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background: #0f172a; /* Fondo oscuro industrial */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
+            background: #0f172a; color: white;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-
         header {
-            text-align: center;
-            padding: 50px 20px;
+            text-align: center; padding: 50px 20px; width: 100%;
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            width: 100%;
             border-bottom: 2px solid #38bdf8;
         }
-
-        h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-        }
-
-        h1 span {
-            color: #38bdf8;
-        }
-
-        .slogan {
-            font-weight: 300;
-            color: #94a3b8;
-            margin-top: 10px;
-        }
-
-        /* Contenedor de botones/enlaces */
+        h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; text-transform: uppercase; }
+        h1 span { color: #38bdf8; }
+        .slogan { font-weight: 300; color: #94a3b8; margin-top: 10px; }
+        
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            width: 90%;
-            padding: 40px 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; max-width: 1000px; width: 90%; padding: 40px 0;
         }
-
         .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: #1e293b; border: 1px solid #334155; padding: 30px;
+            border-radius: 12px; text-align: center; transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            height: 80px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
-
         .card:hover {
-            border-color: #38bdf8;
-            background: #273549;
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8; background: #273549;
+            transform: translateY(-5px); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
         }
+        .card a, .card span { text-decoration: none; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* ESTILOS DE LA CALCULADORA (MODAL) */
+        #modalCalc {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #1e293b; margin: 5% auto; padding: 25px;
+            border: 2px solid #38bdf8; width: 90%; max-width: 500px;
+            border-radius: 15px; text-align: center;
+        }
+        select, input {
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
+            border: 1px solid #334155; background: #0f172a; color: white; font-size: 1rem;
+        }
+        table { width: 100%; margin-top: 15px; border-collapse: collapse; }
+        th { background: #38bdf8; color: #0f172a; padding: 8px; font-size: 0.8rem; }
+        td { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
+        .close-btn { color: #ef4444; font-weight: bold; cursor: pointer; float: right; }
+        .resaltado { color: #38bdf8; font-weight: bold; }
 
-        /* Estilo específico solicitado para los enlaces */
-        .card a {
-            text-decoration: none;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.8rem;
-        }
-
-        /* Decoración */
-        .industrial-line {
-            width: 50px;
-            height: 4px;
-            background: #38bdf8;
-            margin: 20px auto;
-        }
+        footer { margin-top: auto; padding: 20px; color: #64748b; font-size: 0.8rem; }
+        .industrial-line { width: 50px; height: 4px; background: #38bdf8; margin: 20px auto; }
     </style>
 </head>
 <body>
@@ -107,38 +71,76 @@
     </header>
 
     <div class="grid-container">
-        <div class="card">
-            <a href="lavaplatos.html" style="color: rgb(244, 244, 244); font-weight: bold;">lavaplatos</a>
-        </div>
-
-        <div class="card">
-            <a href="desengrasante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desengrasante</a>
-        </div>
-
-        <div class="card">
-            <a href="ariel.html" style="color: rgb(244, 244, 244); font-weight: bold;">ariel</a>
-        </div>
-
-        <div class="card">
-            <a href="suavizante.html" style="color: rgb(244, 244, 244); font-weight: bold;">suavizante</a>
-        </div>
-
-        <div class="card">
-            <a href="desinfectante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desinfectante</a>
-        </div>
-
-        <div class="card">
-            <a href="cera.html" style="color: rgb(244, 244, 244); font-weight: bold;">cera</a>
-        </div>
-
-        <div class="card">
-            <a href="cloro.html" style="color: rgb(244, 244, 244); font-weight: bold;">cloro</a>
+        <div class="card"><a href="lavaplatos.html" style="color: rgb(244, 244, 244); font-weight: bold;">lavaplatos</a></div>
+        <div class="card"><a href="desengrasante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desengrasante</a></div>
+        <div class="card"><a href="ariel.html" style="color: rgb(244, 244, 244); font-weight: bold;">ariel</a></div>
+        <div class="card"><a href="suavizante.html" style="color: rgb(244, 244, 244); font-weight: bold;">suavizante</a></div>
+        <div class="card"><a href="desinfectante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desinfectante</a></div>
+        <div class="card"><a href="cera.html" style="color: rgb(244, 244, 244); font-weight: bold;">cera</a></div>
+        <div class="card"><a href="cloro.html" style="color: rgb(244, 244, 244); font-weight: bold;">cloro</a></div>
+        
+        <div class="card" onclick="abrirCalc()" style="background: #075985; border-color: #38bdf8;">
+            <span style="color: #38bdf8; font-weight: 900;">📊 CALCULADORA</span>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 Detergentes K & J | Sistema de Gestión de Fórmulas para jdiaz
-    </footer>
+    <div id="modalCalc">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarCalc()">[ CERRAR X ]</span>
+            <h2 style="color: #38bdf8;">CALCULADORA K & J</h2>
+            
+            <select id="productoSelect" onchange="hacerCalculo()">
+                <option value="" disabled selected>-- Elige Producto --</option>
+                <option value="lavaplatos">Lavaplatos</option>
+                <option value="desengrasante">Desengrasante</option>
+                <option value="ariel">Tipo Ariel</option>
+                <option value="suavizante">Suavizante</option>
+                <option value="desinfectante">Desinfectante</option>
+                <option value="cera">Cera</option>
+                <option value="cloro">Cloro</option>
+            </select>
 
+            <input type="number" id="litrosInput" placeholder="Cantidad de Litros" oninput="hacerCalculo()">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>INSUMO</th>
+                        <th>CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Detergentes K & J | Sistema para jdiaz</footer>
+
+    <script>
+        const formulas = {
+            lavaplatos: [{n:"Agua", b:0.87}, {n:"Sulfónico", b:0.045}, {n:"Genapol", b:0.045}, {n:"Soda L.", b:0.012}],
+            desengrasante: [{n:"Agua", b:0.864}, {n:"Sulfónico", b:0.05}, {n:"Soda C.", b:0.03}, {n:"Butil", b:0.02}],
+            ariel: [{n:"Agua", b:0.873}, {n:"Sulfónico", b:0.045}, {n:"Genapol", b:0.045}, {n:"Soda L.", b:0.012}],
+            suavizante: [{n:"Agua", b:0.972}, {n:"Alcohol C.", b:0.01}, {n:"Ácido E.", b:0.01}],
+            desinfectante: [{n:"Agua", b:0.983}, {n:"Nonil", b:0.005}, {n:"Amonio", b:0.005}],
+            cera: [{n:"Agua D.", b:0.937}, {n:"Cera Emuls.", b:0.02}, {n:"Agua Eb.", b:0.04}],
+            cloro: [{n:"Agua", b:0.80}, {n:"Hipoclorito", b:0.20}]
+        };
+
+        function abrirCalc() { document.getElementById('modalCalc').style.display = 'block'; }
+        function cerrarCalc() { document.getElementById('modalCalc').style.display = 'none'; }
+
+        function hacerCalculo() {
+            const prod = document.getElementById('productoSelect').value;
+            const litros = document.getElementById('litrosInput').value || 0;
+            const cuerpo = document.getElementById('cuerpoTabla');
+            if(!prod) return;
+            cuerpo.innerHTML = "";
+            formulas[prod].forEach(i => {
+                let cant = (i.b * litros).toFixed(2);
+                cuerpo.innerHTML += `<tr><td>${i.n}</td><td class="resaltado">${cant} Kg/L</td></tr>`;
+            });
+        }
+    </script>
 </body>
 </html>

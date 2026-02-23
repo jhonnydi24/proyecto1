@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora K & J - jdiaz</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: white; padding: 20px; text-align: center; }
+        .card { background: #1e293b; padding: 20px; border-radius: 12px; max-width: 500px; margin: auto; border: 1px solid #38bdf8; }
+        input { padding: 10px; border-radius: 5px; border: none; width: 80%; font-size: 1.2rem; margin: 10px 0; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th { background: #38bdf8; color: #0f172a; padding: 10px; }
+        td { padding: 10px; border-bottom: 1px solid #334155; }
+        .btn-back { display: block; margin-top: 20px; color: #38bdf8; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora de Producción 🧪</h1>
+    
+    <div class="card">
+        <h3>Producto: Desengrasante Industrial</h3>
+        <label>¿Cuántos litros desea fabricar?</label><br>
+        <input type="number" id="litros" value="100" oninput="calcular()">
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Cantidad Requerida</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-cuerpo">
+                </tbody>
+        </table>
+        <a href="index.html" class="btn-back">← Volver al Panel</a>
+    </div>
+
+    <script>
+        // Datos basados en tu registro de Desengrasante
+        const formula = [
+            { nombre: "Agua", base: 0.864 }, // 86.4kg por cada 100L = 0.864 por litro
+            { nombre: "Ácido Sulfónico", base: 0.05 }, 
+            { nombre: "Soda Cáustica 50%", base: 0.03 },
+            { nombre: "Nonil Fenol 10M", base: 0.02 },
+            { nombre: "Butil Glicol", base: 0.02 },
+            { nombre: "Sal Común", base: 0.015 }
+        ];
+
+        function calcular() {
+            const litros = document.getElementById('litros').value;
+            const cuerpo = document.getElementById('tabla-cuerpo');
+            cuerpo.innerHTML = "";
+
+            formula.forEach(item => {
+                let total = (item.base * litros).toFixed(3);
+                let unidad = total >= 1 ? "Kg" : "g";
+                let valorMostrado = total >= 1 ? total : (total * 1000).toFixed(0);
+
+                cuerpo.innerHTML += `<tr>
+                    <td>${item.nombre}</td>
+                    <td><strong>${valorMostrado} ${unidad}</strong></td>
+                </tr>`;
+            });
+        }
+
+        // Ejecutar al cargar
+        calcular();
+    </script>
+</body>
+</html>
