@@ -3,295 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detergentes K & J - Productos de Limpieza de Calidad Superior</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Detergentes K & J | Panel de Productos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2c3e50; /* Azul oscuro */
-            --secondary-color: #3498db; /* Azul vibrante */
-            --accent-color: #27ae60; /* Verde para destacar */
-            --light-bg: #f8f9fa;
-            --text-color: #333;
-            --white: #ffffff;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+            background: #0f172a; /* Fondo oscuro industrial */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
         header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 20px 0;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 50px 20px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            width: 100%;
+            border-bottom: 2px solid #38bdf8;
         }
 
-        header .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            color: var(--white);
-        }
-
-        header .logo span {
-            color: var(--secondary-color);
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        h1 {
+            font-size: 3.5rem;
             margin: 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
         }
 
-        /* Navigation */
-        nav {
-            background-color: var(--secondary-color);
-            padding: 15px 0;
+        h1 span {
+            color: #38bdf8;
+        }
+
+        .slogan {
+            font-weight: 300;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        /* Contenedor de botones/enlaces */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            width: 90%;
+            padding: 40px 0;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+            align-items: center;
+            height: 80px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        nav ul li {
-            margin: 0 15px;
+        .card:hover {
+            border-color: #38bdf8;
+            background: #273549;
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
         }
 
-        nav ul li a {
-            color: var(--white);
+        /* Estilo específico solicitado para los enlaces */
+        .card a {
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: block; /* Para que el padding funcione correctamente */
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        nav ul li a:hover,
-        nav ul li a:focus {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section (Main content) */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1200x500/3498db/ffffff?text=Tu+Imagen+Aqui') no-repeat center center/cover;
-            color: var(--white);
-            text-align: center;
-            padding: 100px 20px;
-            position: relative;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero .btn-primary {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .hero .btn-primary:hover {
-            background-color: #2ecc71;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-        /* About Section */
-        .about-us {
-            padding: 60px 0;
-            background-color: var(--white);
-            text-align: center;
-        }
-
-        .about-us h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .about-us p {
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        /* Footer */
         footer {
-            background-color: var(--primary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 30px 0;
-            font-size: 0.9rem;
-            margin-top: 40px;
+            margin-top: auto;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.8rem;
         }
 
-        footer p {
-            margin: 5px 0;
-        }
-
-        footer .contact-info a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            header .logo {
-                font-size: 2rem;
-            }
-            nav ul li {
-                margin: 5px 10px;
-            }
-            nav ul li a {
-                padding: 6px 10px;
-                font-size: 0.9rem;
-            }
-            .hero {
-                padding: 80px 15px;
-            }
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .hero .btn-primary {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            .about-us h2 {
-                font-size: 1.8rem;
-            }
-            .about-us p {
-                font-size: 0.95rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header .logo {
-                font-size: 1.8rem;
-            }
-            nav ul {
-                flex-direction: column; /* Apila los botones de navegación */
-            }
-            nav ul li {
-                margin: 5px 0;
-            }
-            nav ul li a {
-                width: 80%; /* Ocupa más ancho en móvil */
-                margin: 0 auto;
-                text-align: center;
-            }
-            .hero {
-                padding: 60px 10px;
-            }
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
+        /* Decoración */
+        .industrial-line {
+            width: 50px;
+            height: 4px;
+            background: #38bdf8;
+            margin: 20px auto;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <div class="logo">Detergentes K & <span>J</span></div>
-            <p>Innovación y Limpieza en Cada Gota</p>
-        </div>
+        <h1>Detergentes <span>K & J</span></h1>
+        <div class="industrial-line"></div>
+        <p class="slogan">Innovación y Limpieza en Cada Gota</p>
     </header>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#lavaplatos">Lavaplatos</a></li>
-                <li><a href="#desengrasante">Desengrasante</a></li>
-                <li><a href="#ariel">Ariel</a></li>
-                <li><a href="#suavizante">Suavizante</a></li>
-                <li><a href="#desinfectante">Desinfectante</a></li>
-                <li><a href="#cera">Cera</a></li>
-                <li><a href="#cloro">Cloro</a></li>
-            </ul>
+    <div class="grid-container">
+        <div class="card">
+            <a href="lavaplatos.html" style="color: rgb(244, 244, 244); font-weight: bold;">lavaplatos</a>
         </div>
-    </nav>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Productos de Limpieza para un Hogar y Negocio Impecable</h2>
-            <p>Descubre la potencia y frescura de nuestros detergentes, diseñados para satisfacer todas tus necesidades de limpieza con resultados profesionales.</p>
-            <a href="#productos" class="btn-primary">Ver Todos los Productos</a>
+        <div class="card">
+            <a href="desengrasante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desengrasante</a>
         </div>
-    </section>
 
-    <section class="about-us">
-        <div class="container">
-            <h2>Acerca de Detergentes K & J</h2>
-            <p>En Detergentes K & J, nos dedicamos a ofrecer soluciones de limpieza de la más alta calidad. Con años de experiencia y una pasión por la innovación, creamos productos que no solo limpian, sino que también cuidan tus espacios y prendas, garantizando un ambiente fresco y brillante. Nuestra misión es simple: brindarte la excelencia en cada producto.</p>
-            <p>¡Confía en K & J para una limpieza superior!</p>
+        <div class="card">
+            <a href="ariel.html" style="color: rgb(244, 244, 244); font-weight: bold;">ariel</a>
         </div>
-    </section>
 
-    <section id="productos" class="container" style="padding: 60px 0; text-align: center;">
-        <h2>Nuestra Gama de Productos</h2>
-        <p>Haz clic en cualquiera de los enlaces de arriba para saber más sobre cada uno de nuestros detergentes.</p>
-        </section>
+        <div class="card">
+            <a href="suavizante.html" style="color: rgb(244, 244, 244); font-weight: bold;">suavizante</a>
+        </div>
+
+        <div class="card">
+            <a href="desinfectante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desinfectante</a>
+        </div>
+
+        <div class="card">
+            <a href="cera.html" style="color: rgb(244, 244, 244); font-weight: bold;">cera</a>
+        </div>
+
+        <div class="card">
+            <a href="cloro.html" style="color: rgb(244, 244, 244); font-weight: bold;">cloro</a>
+        </div>
+    </div>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2023 Detergentes K & J. Todos los derechos reservados.</p>
-            <div class="contact-info">
-                <p>Contacto: <a href="mailto:info@detergenteskyj.com">info@detergenteskyj.com</a> | Tel: +507 1234-5678</p>
-            </div>
-        </div>
+        &copy; 2026 Detergentes K & J | Sistema de Gestión de Fórmulas para jdiaz
     </footer>
 
 </body>
