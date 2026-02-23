@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso K & J | jdiaz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
+            background: #0f172a; color: white;
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+        }
+        .login-box {
+            background: #1e293b; padding: 40px; border-radius: 15px;
+            border: 2px solid #38bdf8; text-align: center; width: 320px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h2 { color: #38bdf8; text-transform: uppercase; margin-bottom: 5px; }
+        .subtitle { color: #94a3b8; font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 1px; }
+        
+        input {
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
+            border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
+            outline: none; font-size: 1rem;
+        }
+        input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
+        
+        .btn-login {
+            background: #38bdf8; color: #0f172a; border: none; padding: 12px;
+            width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer;
+            margin-top: 15px; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-login:hover { background: #0ea5e9; transform: scale(1.02); }
+        
+        #errorMsg { color: #ef4444; font-size: 0.85rem; display: none; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>SISTEMA K & J</h2>
+        <div class="subtitle">CONTROL DE ACCESO INDUSTRIAL</div>
+        
+        <input type="text" id="userInput" placeholder="Usuario">
+        <input type="password" id="passInput" placeholder="Contraseña">
+        
+        <button class="btn-login" onclick="validarYEntrar()">Entrar al Panel</button>
+        
+        <p id="errorMsg">⚠️ CREDENCIALES INCORRECTAS</p>
+    </div>
+
+    <script>
+        function validarYEntrar() {
+            const user = document.getElementById('userInput').value;
+            const pass = document.getElementById('passInput').value;
+            const error = document.getElementById('errorMsg');
+
+            // Credenciales solicitadas: admin / admin
+            if (user === "admin" && pass === "admin") {
+                // Guardamos un marcador de sesión
+                localStorage.setItem('acceso_permitido', 'true');
+                localStorage.setItem('usuario_actual', 'admin');
+                
+                // Redirección inmediata al index
+                window.location.href = "index.html";
+            } else {
+                error.style.display = 'block';
+                document.getElementById('passInput').value = "";
+            }
+        }
+
+        // Detectar tecla Enter para mayor comodidad
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                validarYEntrar();
+            }
+        });
+    </script>
+</body>
+</html>
