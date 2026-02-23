@@ -37,16 +37,16 @@
         }
         .card a, .card span { text-decoration: none; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* ESTILOS DE LA CALCULADORA (MODAL) */
         #modalCalc {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
             backdrop-filter: blur(5px);
         }
         .modal-content {
-            background: #1e293b; margin: 5% auto; padding: 25px;
-            border: 2px solid #38bdf8; width: 90%; max-width: 500px;
+            background: #1e293b; margin: 2% auto; padding: 25px;
+            border: 2px solid #38bdf8; width: 90%; max-width: 550px;
             border-radius: 15px; text-align: center;
+            max-height: 90vh; overflow-y: auto;
         }
         select, input {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
@@ -54,8 +54,8 @@
         }
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
         th { background: #38bdf8; color: #0f172a; padding: 8px; font-size: 0.8rem; }
-        td { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
-        .close-btn { color: #ef4444; font-weight: bold; cursor: pointer; float: right; }
+        td { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; text-align: left; }
+        .close-btn { color: #ef4444; font-weight: bold; cursor: pointer; float: right; padding: 5px; }
         .resaltado { color: #38bdf8; font-weight: bold; }
 
         footer { margin-top: auto; padding: 20px; color: #64748b; font-size: 0.8rem; }
@@ -87,26 +87,26 @@
     <div id="modalCalc">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarCalc()">[ CERRAR X ]</span>
-            <h2 style="color: #38bdf8;">CALCULADORA K & J</h2>
+            <h2 style="color: #38bdf8; margin-top: 10px;">Calculadora de Insumos</h2>
             
             <select id="productoSelect" onchange="hacerCalculo()">
-                <option value="" disabled selected>-- Elige Producto --</option>
-                <option value="lavaplatos">Lavaplatos</option>
-                <option value="desengrasante">Desengrasante</option>
-                <option value="ariel">Tipo Ariel</option>
-                <option value="suavizante">Suavizante</option>
-                <option value="desinfectante">Desinfectante</option>
-                <option value="cera">Cera</option>
-                <option value="cloro">Cloro</option>
+                <option value="" disabled selected>-- Seleccione Producto --</option>
+                <option value="lavaplatos">1. Lavaplatos Líquido</option>
+                <option value="desengrasante">2. Desengrasante Industrial</option>
+                <option value="ariel">3. Detergente Tipo Ariel</option>
+                <option value="suavizante">4. Suavizante Ropa</option>
+                <option value="desinfectante">5. Desinfectante Bactericida</option>
+                <option value="cera">6. Cera Auto Brillo</option>
+                <option value="cloro">7. Cloro (Hipoclorito)</option>
             </select>
 
-            <input type="number" id="litrosInput" placeholder="Cantidad de Litros" oninput="hacerCalculo()">
+            <input type="number" id="litrosInput" placeholder="Litros a fabricar (ej: 100)" oninput="hacerCalculo()">
 
             <table>
                 <thead>
                     <tr>
-                        <th>INSUMO</th>
-                        <th>CANTIDAD</th>
+                        <th>INGREDIENTE</th>
+                        <th>CANTIDAD TOTAL</th>
                     </tr>
                 </thead>
                 <tbody id="cuerpoTabla"></tbody>
@@ -117,14 +117,39 @@
     <footer>&copy; 2026 Detergentes K & J | Sistema para jdiaz</footer>
 
     <script>
+        // Fórmulas actualizadas según el resumen de 1 Litro (cantidades en gramos/litros)
         const formulas = {
-            lavaplatos: [{n:"Agua", b:0.87}, {n:"Sulfónico", b:0.045}, {n:"Genapol", b:0.045}, {n:"Soda L.", b:0.012}],
-            desengrasante: [{n:"Agua", b:0.864}, {n:"Sulfónico", b:0.05}, {n:"Soda C.", b:0.03}, {n:"Butil", b:0.02}],
-            ariel: [{n:"Agua", b:0.873}, {n:"Sulfónico", b:0.045}, {n:"Genapol", b:0.045}, {n:"Soda L.", b:0.012}],
-            suavizante: [{n:"Agua", b:0.972}, {n:"Alcohol C.", b:0.01}, {n:"Ácido E.", b:0.01}],
-            desinfectante: [{n:"Agua", b:0.983}, {n:"Nonil", b:0.005}, {n:"Amonio", b:0.005}],
-            cera: [{n:"Agua D.", b:0.937}, {n:"Cera Emuls.", b:0.02}, {n:"Agua Eb.", b:0.04}],
-            cloro: [{n:"Agua", b:0.80}, {n:"Hipoclorito", b:0.20}]
+            lavaplatos: [
+                {n:"Agua", b:0.870}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
+                {n:"Dietanolamina", b:0.010}, {n:"Soda Líquida 50%", b:0.012}, {n:"Sal (Espesante)", b:0.016},
+                {n:"Fragancia", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            desengrasante: [
+                {n:"Agua", b:0.864}, {n:"Ácido Sulfónico 96.8%", b:0.050}, {n:"Soda Cáustica 50%", b:0.030},
+                {n:"Nonil Fenol 10M", b:0.020}, {n:"Butil Glicol", b:0.020}, {n:"Sal Común", b:0.015},
+                {n:"Conservante", b:0.001}
+            ],
+            ariel: [
+                {n:"Agua", b:0.873}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
+                {n:"Soda Líquida 50%", b:0.012}, {n:"Tripolifosfato de Sodio", b:0.005}, {n:"Sal", b:0.018},
+                {n:"Fragancia", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            suavizante: [
+                {n:"Agua", b:0.972}, {n:"Alcohol Cetílico", b:0.010}, {n:"Ácido Esteárico", b:0.010},
+                {n:"Genapol Pasta", b:0.002}, {n:"Trietanolamina", b:0.001}, {n:"Fragancia", b:0.002},
+                {n:"Glicerina", b:0.002},{n:"Conservante", b:0.001}
+            ],
+            desinfectante: [
+                {n:"Agua", b:0.983}, {n:"Nonil Fenol 10M", b:0.005}, {n:"Amonio Cuaternario", b:0.005},
+                {n:"Fragancia", b:0.005}, {n:"Propilenglicol", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            cera: [
+                {n:"Agua Desmineralizada", b:0.937}, {n:"Cera en Escama Emuls.", b:0.020}, 
+                {n:"Agua para Ebullición", b:0.040}, {n:"Fragancia", b:0.001}, {n:"Nonil Fenol", b:0.001}
+            ],
+            cloro: [
+                {n:"Agua Desmineralizada", b:0.800}, {n:"Hipoclorito de Sodio 12%", b:0.200}
+            ]
         };
 
         function abrirCalc() { document.getElementById('modalCalc').style.display = 'block'; }
@@ -132,13 +157,24 @@
 
         function hacerCalculo() {
             const prod = document.getElementById('productoSelect').value;
-            const litros = document.getElementById('litrosInput').value || 0;
+            const litros = parseFloat(document.getElementById('litrosInput').value) || 0;
             const cuerpo = document.getElementById('cuerpoTabla');
+            
             if(!prod) return;
             cuerpo.innerHTML = "";
+            
             formulas[prod].forEach(i => {
-                let cant = (i.b * litros).toFixed(2);
-                cuerpo.innerHTML += `<tr><td>${i.n}</td><td class="resaltado">${cant} Kg/L</td></tr>`;
+                let total = i.b * litros;
+                let unidad = "Kg/L";
+                let valorFormateado = total.toFixed(3);
+
+                // Si el resultado es menor a 1 Kg, mostrarlo en gramos para precisión
+                if (total < 1 && total > 0) {
+                    valorFormateado = (total * 1000).toFixed(1);
+                    unidad = "gramos/ml";
+                }
+
+                cuerpo.innerHTML += `<tr><td>${i.n}</td><td class="resaltado">${valorFormateado} ${unidad}</td></tr>`;
             });
         }
     </script>
