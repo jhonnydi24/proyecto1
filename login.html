@@ -6,24 +6,37 @@
     <title>Acceso K & J | jdiaz</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
+        /* Bloqueo de selección de texto y cursor */
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         body {
             margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
             background: #0f172a; color: white;
             display: flex; justify-content: center; align-items: center; height: 100vh;
+            overflow: hidden;
         }
+
         .login-box {
             background: #1e293b; padding: 40px; border-radius: 15px;
             border: 2px solid #38bdf8; text-align: center; width: 320px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        h2 { color: #38bdf8; text-transform: uppercase; margin-bottom: 5px; }
+
+        h2 { color: #38bdf8; text-transform: uppercase; margin-bottom: 5px; font-weight: 900; }
         .subtitle { color: #94a3b8; font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 1px; }
         
         input {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
             border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
             outline: none; font-size: 1rem;
+            user-select: text !important; /* Permite escribir en los campos */
         }
+
         input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
         
         .btn-login {
@@ -31,18 +44,17 @@
             width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer;
             margin-top: 15px; text-transform: uppercase; transition: 0.3s;
         }
+
         .btn-login:hover { background: #0ea5e9; transform: scale(1.02); }
         
         #errorMsg { color: #ef4444; font-size: 0.85rem; display: none; margin-top: 15px; font-weight: bold; }
     </style>
 </head>
-<body>
-
-    <div class="login-box">
+<body oncontextmenu="return false;"> <div class="login-box">
         <h2>SISTEMA K & J</h2>
         <div class="subtitle">CONTROL DE ACCESO INDUSTRIAL</div>
         
-        <input type="text" id="userInput" placeholder="Usuario">
+        <input type="text" id="userInput" placeholder="Usuario" autocomplete="off" spellcheck="false">
         <input type="password" id="passInput" placeholder="Contraseña">
         
         <button class="btn-login" onclick="validarYEntrar()">Entrar al Panel</button>
@@ -51,16 +63,28 @@
     </div>
 
     <script>
+        // --- BLOQUEO DE HERRAMIENTAS DE DESARROLLO ---
+        document.onkeydown = function(e) {
+            // Bloquear F12
+            if(e.keyCode == 123) return false;
+            // Bloquear Ctrl+Shift+I (Inspeccionar)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            // Bloquear Ctrl+Shift+J (Consola)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            // Bloquear Ctrl+U (Ver Código Fuente)
+            if(e.ctrlKey && e.keyCode == 85) return false;
+        };
+
         // --- BASE DE DATOS DE USUARIOS ---
         const USUARIOS_AUTORIZADOS = {
-            "admin": "admin",             // Administrador Principal
-            "cliente1": "KJ99Alpha",      // Cliente estándar 1
-            "cliente2": "Zeta2026KJ",     // Cliente estándar 2
-            "cliente3": "Beta44XyZ",      // Cliente estándar 3
-            "cliente4": "KJ99Al9ha",      // Cliente estándar 1
-            "cliente5": "Ze5a202gKJ",     // Cliente estándar 2
-            "cliente6": "Beta44X44",      // Cliente estándar 3
-            "jdiaz": "Jhonny24KJ"         // Tu usuario personal
+            "admin": "admin",
+            "cliente1": "KJ99Alpha",
+            "cliente2": "Zeta2026KJ",
+            "cliente3": "Beta44XyZ",
+            "cliente4": "KJ99Al9ha",
+            "cliente5": "Ze5a202gKJ",
+            "cliente6": "Beta44X44",
+            "jdiaz": "Jhonny24KJ"
         };
 
         function validarYEntrar() {
@@ -68,28 +92,37 @@
             const pass = document.getElementById('passInput').value.trim();
             const error = document.getElementById('errorMsg');
 
-            // Verificamos si el usuario existe y si la contraseña coincide
             if (USUARIOS_AUTORIZADOS[user] && USUARIOS_AUTORIZADOS[user] === pass) {
-                
-                // Guardamos la sesión en el navegador
+                // Sesión local
                 localStorage.setItem('acceso_permitido', 'true');
                 localStorage.setItem('usuario_actual', user);
                 
-                // Redirección al panel principal
+                // Redirección al index
                 window.location.href = "index.html";
             } else {
-                // Si falla, mostramos error y limpiamos contraseña
                 error.style.display = 'block';
                 document.getElementById('passInput').value = "";
             }
         }
 
-        // Permitir entrar con la tecla Enter
+        // Acceso con tecla Enter
         document.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 validarYEntrar();
             }
         });
+
+        // Anti-Depuración: Limpia la consola constantemente
+        setInterval(function() {
+            console.clear();
+        }, 500);
+
+        // Detectar si la ventana de desarrollo se intenta abrir por redimensionamiento
+        window.onresize = function() {
+            if ((window.outerHeight - window.innerHeight) > 200 || (window.outerWidth - window.innerWidth) > 200) {
+                document.body.innerHTML = "Acceso denegado: Herramientas de desarrollo detectadas.";
+            }
+        };
     </script>
 </body>
 </html>
