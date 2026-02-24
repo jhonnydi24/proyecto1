@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <script>
-        // --- PROTECCIÓN DE SESIÓN (ANTES DE RENDERIZAR) ---
+        // --- PROTECCIÓN DE SESIÓN (ANTES DE RENDERIZAR CUALQUIER COSA) ---
         if (localStorage.getItem('acceso_permitido') !== 'true') {
             window.location.href = "login.html";
         }
@@ -12,23 +12,35 @@
     <title>Detergentes K & J | Panel de Productos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
+        /* Bloqueo de selección de texto para proteger la información de fórmulas */
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         body {
             margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
             background: #0f172a; color: white;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
+
         header {
             text-align: center; padding: 50px 20px; width: 100%;
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             border-bottom: 2px solid #38bdf8;
             position: relative;
         }
+
         .logout-btn {
             position: absolute; top: 20px; right: 20px;
             background: #ef4444; color: white; border: none;
             padding: 8px 15px; border-radius: 5px; cursor: pointer;
-            font-weight: bold; font-size: 0.8rem;
+            font-weight: bold; font-size: 0.8rem; transition: 0.3s;
         }
+        .logout-btn:hover { background: #dc2626; transform: scale(1.05); }
+
         h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; text-transform: uppercase; }
         h1 span { color: #38bdf8; }
         .slogan { font-weight: 300; color: #94a3b8; margin-top: 10px; }
@@ -37,6 +49,7 @@
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px; max-width: 1000px; width: 90%; padding: 40px 0;
         }
+
         .card {
             background: #1e293b; border: 1px solid #334155; padding: 30px;
             border-radius: 12px; text-align: center; transition: all 0.3s ease;
@@ -48,23 +61,27 @@
             border-color: #38bdf8; background: #273549;
             transform: translateY(-5px); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
         }
-        .card a, .card span { text-decoration: none; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        .card a, .card span { text-decoration: none; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: rgb(244, 244, 244); font-weight: bold;}
         
         #modalCalc {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
             backdrop-filter: blur(5px);
         }
+
         .modal-content {
             background: #1e293b; margin: 2% auto; padding: 25px;
             border: 2px solid #38bdf8; width: 90%; max-width: 550px;
             border-radius: 15px; text-align: center;
             max-height: 90vh; overflow-y: auto;
         }
+
         select, input {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
             border: 1px solid #334155; background: #0f172a; color: white; font-size: 1rem;
+            user-select: text !important; /* Permite escribir en la calculadora */
         }
+
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
         th { background: #38bdf8; color: #0f172a; padding: 8px; font-size: 0.8rem; }
         td { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; text-align: left; }
@@ -75,9 +92,7 @@
         .industrial-line { width: 50px; height: 4px; background: #38bdf8; margin: 20px auto; }
     </style>
 </head>
-<body>
-
-    <header>
+<body oncontextmenu="return false;"> <header>
         <button class="logout-btn" onclick="cerrarSesion()">CERRAR SESIÓN</button>
         <h1>Detergentes <span>K & J</span></h1>
         <div class="industrial-line"></div>
@@ -85,13 +100,13 @@
     </header>
 
     <div class="grid-container">
-        <div class="card"><a href="lavaplatos.html" style="color: rgb(244, 244, 244); font-weight: bold;">lavaplatos</a></div>
-        <div class="card"><a href="desengrasante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desengrasante</a></div>
-        <div class="card"><a href="ariel.html" style="color: rgb(244, 244, 244); font-weight: bold;">ariel</a></div>
-        <div class="card"><a href="suavizante.html" style="color: rgb(244, 244, 244); font-weight: bold;">suavizante</a></div>
-        <div class="card"><a href="desinfectante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desinfectante</a></div>
-        <div class="card"><a href="cera.html" style="color: rgb(244, 244, 244); font-weight: bold;">cera</a></div>
-        <div class="card"><a href="cloro.html" style="color: rgb(244, 244, 244); font-weight: bold;">cloro</a></div>
+        <div class="card"><a href="lavaplatos.html">lavaplatos</a></div>
+        <div class="card"><a href="desengrasante.html">desengrasante</a></div>
+        <div class="card"><a href="ariel.html">ariel</a></div>
+        <div class="card"><a href="suavizante.html">suavizante</a></div>
+        <div class="card"><a href="desinfectante.html">desinfectante</a></div>
+        <div class="card"><a href="cera.html">cera</a></div>
+        <div class="card"><a href="cloro.html">cloro</a></div>
         
         <div class="card" onclick="abrirCalc()" style="background: #075985; border-color: #38bdf8;">
             <span style="color: #38bdf8; font-weight: 900;">📊 CALCULADORA</span>
@@ -131,6 +146,16 @@
     <footer>&copy; 2026 Detergentes K & J | Sistema para jdiaz</footer>
 
     <script>
+        // --- PROTECCIÓN DE TECLAS (CONTROL Y F12) ---
+        document.onkeydown = function(e) {
+            // Bloquear F12
+            if(e.keyCode == 123) return false;
+            // Bloquear Tecla CONTROL (Bloquea Ctrl+C, Ctrl+U, Ctrl+S, etc)
+            if(e.ctrlKey || e.keyCode == 17) {
+                return false;
+            }
+        };
+
         // --- FUNCIÓN PARA CERRAR SESIÓN ---
         function cerrarSesion() {
             localStorage.removeItem('acceso_permitido');
@@ -138,7 +163,7 @@
             window.location.href = "login.html";
         }
 
-        // Fórmulas de productos
+        // --- LÓGICA DE CALCULADORA ---
         const formulas = {
             lavaplatos: [
                 {n:"Agua", b:0.870}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
@@ -197,6 +222,9 @@
                 cuerpo.innerHTML += `<tr><td>${i.n}</td><td class="resaltado">${valorFormateado} ${unidad}</td></tr>`;
             });
         }
+
+        // Limpiar consola para evitar inspección de objetos JS
+        setInterval(() => console.clear(), 1000);
     </script>
 </body>
 </html>
