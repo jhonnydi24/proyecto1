@@ -2,16 +2,6 @@
 <html lang="es">
 <head>
     <script>
-        // Bloquear botón derecho
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-        // Bloquear copiar
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-        });
-    </script>
-    <script>
         // --- PROTECCIÓN DE SESIÓN (ANTES DE RENDERIZAR) ---
         if (localStorage.getItem('acceso_permitido') !== 'true') {
             window.location.href = "login.html";
