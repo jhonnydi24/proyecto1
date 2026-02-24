@@ -3,126 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso K & J | jdiaz</title>
+    <title>Detergentes K & J | Panel de Productos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
-        /* Bloqueo de selección de texto y cursor */
-        * {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
         body {
             margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
             background: #0f172a; color: white;
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-
-        .login-box {
-            background: #1e293b; padding: 40px; border-radius: 15px;
-            border: 2px solid #38bdf8; text-align: center; width: 320px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        header {
+            text-align: center; padding: 50px 20px; width: 100%;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 2px solid #38bdf8;
         }
-
-        h2 { color: #38bdf8; text-transform: uppercase; margin-bottom: 5px; font-weight: 900; }
-        .subtitle { color: #94a3b8; font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 1px; }
+        h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; text-transform: uppercase; }
+        h1 span { color: #38bdf8; }
+        .slogan { font-weight: 300; color: #94a3b8; margin-top: 10px; }
         
-        input {
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; max-width: 1000px; width: 90%; padding: 40px 0;
+        }
+        .card {
+            background: #1e293b; border: 1px solid #334155; padding: 30px;
+            border-radius: 12px; text-align: center; transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            height: 80px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .card:hover {
+            border-color: #38bdf8; background: #273549;
+            transform: translateY(-5px); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+        .card a, .card span { text-decoration: none; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        #modalCalc {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #1e293b; margin: 2% auto; padding: 25px;
+            border: 2px solid #38bdf8; width: 90%; max-width: 550px;
+            border-radius: 15px; text-align: center;
+            max-height: 90vh; overflow-y: auto;
+        }
+        select, input {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
-            border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
-            outline: none; font-size: 1rem;
-            user-select: text !important; /* Permite escribir en los campos */
+            border: 1px solid #334155; background: #0f172a; color: white; font-size: 1rem;
         }
+        table { width: 100%; margin-top: 15px; border-collapse: collapse; }
+        th { background: #38bdf8; color: #0f172a; padding: 8px; font-size: 0.8rem; }
+        td { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; text-align: left; }
+        .close-btn { color: #ef4444; font-weight: bold; cursor: pointer; float: right; padding: 5px; }
+        .resaltado { color: #38bdf8; font-weight: bold; }
 
-        input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
-        
-        .btn-login {
-            background: #38bdf8; color: #0f172a; border: none; padding: 12px;
-            width: 100%; border-radius: 8px; font-weight: 900; cursor: pointer;
-            margin-top: 15px; text-transform: uppercase; transition: 0.3s;
-        }
-
-        .btn-login:hover { background: #0ea5e9; transform: scale(1.02); }
-        
-        #errorMsg { color: #ef4444; font-size: 0.85rem; display: none; margin-top: 15px; font-weight: bold; }
+        footer { margin-top: auto; padding: 20px; color: #64748b; font-size: 0.8rem; }
+        .industrial-line { width: 50px; height: 4px; background: #38bdf8; margin: 20px auto; }
     </style>
 </head>
-<body oncontextmenu="return false;"> <div class="login-box">
-        <h2>SISTEMA K & J</h2>
-        <div class="subtitle">CONTROL DE ACCESO INDUSTRIAL</div>
+<body>
+
+    <header>
+        <h1>Detergentes <span>K & J</span></h1>
+        <div class="industrial-line"></div>
+        <p class="slogan">Innovación y Limpieza en Cada Gota</p>
+    </header>
+
+    <div class="grid-container">
+        <div class="card"><a href="lavaplatos.html" style="color: rgb(244, 244, 244); font-weight: bold;">lavaplatos</a></div>
+        <div class="card"><a href="desengrasante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desengrasante</a></div>
+        <div class="card"><a href="ariel.html" style="color: rgb(244, 244, 244); font-weight: bold;">ariel</a></div>
+        <div class="card"><a href="suavizante.html" style="color: rgb(244, 244, 244); font-weight: bold;">suavizante</a></div>
+        <div class="card"><a href="desinfectante.html" style="color: rgb(244, 244, 244); font-weight: bold;">desinfectante</a></div>
+        <div class="card"><a href="cera.html" style="color: rgb(244, 244, 244); font-weight: bold;">cera</a></div>
+        <div class="card"><a href="cloro.html" style="color: rgb(244, 244, 244); font-weight: bold;">cloro</a></div>
         
-        <input type="text" id="userInput" placeholder="Usuario" autocomplete="off" spellcheck="false">
-        <input type="password" id="passInput" placeholder="Contraseña">
-        
-        <button class="btn-login" onclick="validarYEntrar()">Entrar al Panel</button>
-        
-        <p id="errorMsg">⚠️ CREDENCIALES INCORRECTAS</p>
+        <div class="card" onclick="abrirCalc()" style="background: #075985; border-color: #38bdf8;">
+            <span style="color: #38bdf8; font-weight: 900;">📊 CALCULADORA</span>
+        </div>
     </div>
 
+    <div id="modalCalc">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarCalc()">[ CERRAR X ]</span>
+            <h2 style="color: #38bdf8; margin-top: 10px;">Calculadora de Insumos</h2>
+            
+            <select id="productoSelect" onchange="hacerCalculo()">
+                <option value="" disabled selected>-- Seleccione Producto --</option>
+                <option value="lavaplatos">1. Lavaplatos Líquido</option>
+                <option value="desengrasante">2. Desengrasante Industrial</option>
+                <option value="ariel">3. Detergente Tipo Ariel</option>
+                <option value="suavizante">4. Suavizante Ropa</option>
+                <option value="desinfectante">5. Desinfectante Bactericida</option>
+                <option value="cera">6. Cera Auto Brillo</option>
+                <option value="cloro">7. Cloro (Hipoclorito)</option>
+            </select>
+
+            <input type="number" id="litrosInput" placeholder="Litros a fabricar (ej: 100)" oninput="hacerCalculo()">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>INGREDIENTE</th>
+                        <th>CANTIDAD TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Detergentes K & J | Sistema para jdiaz</footer>
+
     <script>
-        // --- BLOQUEO DE HERRAMIENTAS DE DESARROLLO ---
-        document.onkeydown = function(e) {
-            // Bloquear F12
-            if(e.keyCode == 123) return false;
-            // Bloquear Ctrl+Shift+I (Inspeccionar)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
-            // Bloquear Ctrl+Shift+J (Consola)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
-            // Bloquear Ctrl+U (Ver Código Fuente)
-            if(e.ctrlKey && e.keyCode == 85) return false;
+        // Fórmulas actualizadas según el resumen de 1 Litro (cantidades en gramos/litros)
+        const formulas = {
+            lavaplatos: [
+                {n:"Agua", b:0.870}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
+                {n:"Dietanolamina", b:0.010}, {n:"Soda Líquida 50%", b:0.012}, {n:"Sal (Espesante)", b:0.016},
+                {n:"Fragancia", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            desengrasante: [
+                {n:"Agua", b:0.864}, {n:"Ácido Sulfónico 96.8%", b:0.050}, {n:"Soda Cáustica 50%", b:0.030},
+                {n:"Nonil Fenol 10M", b:0.020}, {n:"Butil Glicol", b:0.020}, {n:"Sal Común", b:0.015},
+                {n:"Conservante", b:0.001}
+            ],
+            ariel: [
+                {n:"Agua", b:0.873}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
+                {n:"Soda Líquida 50%", b:0.012}, {n:"Tripolifosfato de Sodio", b:0.005}, {n:"Sal", b:0.018},
+                {n:"Fragancia", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            suavizante: [
+                {n:"Agua", b:0.972}, {n:"Alcohol Cetílico", b:0.010}, {n:"Ácido Esteárico", b:0.010},
+                {n:"Genapol Pasta", b:0.002}, {n:"Trietanolamina", b:0.001}, {n:"Fragancia", b:0.002},
+                {n:"Glicerina", b:0.002},{n:"Conservante", b:0.001}
+            ],
+            desinfectante: [
+                {n:"Agua", b:0.983}, {n:"Nonil Fenol 10M", b:0.005}, {n:"Amonio Cuaternario", b:0.005},
+                {n:"Fragancia", b:0.005}, {n:"Propilenglicol", b:0.001}, {n:"Conservante", b:0.001}
+            ],
+            cera: [
+                {n:"Agua Desmineralizada", b:0.937}, {n:"Cera en Escama Emuls.", b:0.020}, 
+                {n:"Agua para Ebullición", b:0.040}, {n:"Fragancia", b:0.001}, {n:"Nonil Fenol", b:0.001}
+            ],
+            cloro: [
+                {n:"Agua Desmineralizada", b:0.800}, {n:"Hipoclorito de Sodio 12%", b:0.200}
+            ]
         };
 
-        // --- BASE DE DATOS DE USUARIOS ---
-        const USUARIOS_AUTORIZADOS = {
-            "admin": "admin",
-            "cliente1": "KJ99Alpha",
-            "cliente2": "Zeta2026KJ",
-            "cliente3": "Beta44XyZ",
-            "cliente4": "KJ99Al9ha",
-            "cliente5": "Ze5a202gKJ",
-            "cliente6": "Beta44X44",
-            "jdiaz": "Jhonny24KJ"
-        };
+        function abrirCalc() { document.getElementById('modalCalc').style.display = 'block'; }
+        function cerrarCalc() { document.getElementById('modalCalc').style.display = 'none'; }
 
-        function validarYEntrar() {
-            const user = document.getElementById('userInput').value.trim();
-            const pass = document.getElementById('passInput').value.trim();
-            const error = document.getElementById('errorMsg');
+        function hacerCalculo() {
+            const prod = document.getElementById('productoSelect').value;
+            const litros = parseFloat(document.getElementById('litrosInput').value) || 0;
+            const cuerpo = document.getElementById('cuerpoTabla');
+            
+            if(!prod) return;
+            cuerpo.innerHTML = "";
+            
+            formulas[prod].forEach(i => {
+                let total = i.b * litros;
+                let unidad = "Kg/L";
+                let valorFormateado = total.toFixed(3);
 
-            if (USUARIOS_AUTORIZADOS[user] && USUARIOS_AUTORIZADOS[user] === pass) {
-                // Sesión local
-                localStorage.setItem('acceso_permitido', 'true');
-                localStorage.setItem('usuario_actual', user);
-                
-                // Redirección al index
-                window.location.href = "index.html";
-            } else {
-                error.style.display = 'block';
-                document.getElementById('passInput').value = "";
-            }
+                // Si el resultado es menor a 1 Kg, mostrarlo en gramos para precisión
+                if (total < 1 && total > 0) {
+                    valorFormateado = (total * 1000).toFixed(1);
+                    unidad = "gramos/ml";
+                }
+
+                cuerpo.innerHTML += `<tr><td>${i.n}</td><td class="resaltado">${valorFormateado} ${unidad}</td></tr>`;
+            });
         }
-
-        // Acceso con tecla Enter
-        document.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarYEntrar();
-            }
-        });
-
-        // Anti-Depuración: Limpia la consola constantemente
-        setInterval(function() {
-            console.clear();
-        }, 500);
-
-        // Detectar si la ventana de desarrollo se intenta abrir por redimensionamiento
-        window.onresize = function() {
-            if ((window.outerHeight - window.innerHeight) > 200 || (window.outerWidth - window.innerWidth) > 200) {
-                document.body.innerHTML = "Acceso denegado: Herramientas de desarrollo detectadas.";
-            }
-        };
     </script>
 </body>
 </html>
