@@ -6,7 +6,7 @@
     <title>Acceso K & J | jdiaz</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
-        /* Bloqueo de selección de texto y cursor */
+        /* Bloqueo de selección de texto y cursor para evitar copiado */
         * {
             user-select: none;
             -webkit-user-select: none;
@@ -34,7 +34,7 @@
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
             border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
             outline: none; font-size: 1rem;
-            user-select: text !important; /* Permite escribir en los campos */
+            user-select: text !important; /* Permite escribir específicamente aquí */
         }
 
         input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
@@ -63,16 +63,13 @@
     </div>
 
     <script>
-        // --- BLOQUEO DE HERRAMIENTAS DE DESARROLLO ---
+        // --- BLOQUEO DE HERRAMIENTAS DE DESARROLLO (F12, Ctrl+U, etc) ---
         document.onkeydown = function(e) {
-            // Bloquear F12
-            if(e.keyCode == 123) return false;
-            // Bloquear Ctrl+Shift+I (Inspeccionar)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
-            // Bloquear Ctrl+Shift+J (Consola)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
-            // Bloquear Ctrl+U (Ver Código Fuente)
-            if(e.ctrlKey && e.keyCode == 85) return false;
+            if(e.keyCode == 123 || 
+              (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+              (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
         };
 
         // --- BASE DE DATOS DE USUARIOS ---
@@ -93,11 +90,11 @@
             const error = document.getElementById('errorMsg');
 
             if (USUARIOS_AUTORIZADOS[user] && USUARIOS_AUTORIZADOS[user] === pass) {
-                // Sesión local
+                // Generar sesión en el navegador
                 localStorage.setItem('acceso_permitido', 'true');
                 localStorage.setItem('usuario_actual', user);
                 
-                // Redirección al index
+                // Redirección a la pantalla de detergentes (index.html)
                 window.location.href = "index.html";
             } else {
                 error.style.display = 'block';
@@ -105,22 +102,22 @@
             }
         }
 
-        // Acceso con tecla Enter
+        // Permitir entrada con la tecla Enter
         document.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 validarYEntrar();
             }
         });
 
-        // Anti-Depuración: Limpia la consola constantemente
+        // Anti-Consola: Limpia el log constantemente
         setInterval(function() {
             console.clear();
         }, 500);
 
-        // Detectar si la ventana de desarrollo se intenta abrir por redimensionamiento
+        // Bloqueo por redimensionamiento (si intentan abrir la consola lateral)
         window.onresize = function() {
             if ((window.outerHeight - window.innerHeight) > 200 || (window.outerWidth - window.innerWidth) > 200) {
-                document.body.innerHTML = "Acceso denegado: Herramientas de desarrollo detectadas.";
+                document.body.innerHTML = "<h2 style='color:white; text-align:center; margin-top:20%;'>Acceso denegado: Seguridad activa.</h2>";
             }
         };
     </script>

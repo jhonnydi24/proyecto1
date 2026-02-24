@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script>
+        // --- PROTECCIÓN DE SESIÓN (ANTES DE RENDERIZAR) ---
+        if (localStorage.getItem('acceso_permitido') !== 'true') {
+            window.location.href = "login.html";
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detergentes K & J | Panel de Productos</title>
@@ -15,6 +21,13 @@
             text-align: center; padding: 50px 20px; width: 100%;
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             border-bottom: 2px solid #38bdf8;
+            position: relative;
+        }
+        .logout-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: #ef4444; color: white; border: none;
+            padding: 8px 15px; border-radius: 5px; cursor: pointer;
+            font-weight: bold; font-size: 0.8rem;
         }
         h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; text-transform: uppercase; }
         h1 span { color: #38bdf8; }
@@ -65,6 +78,7 @@
 <body>
 
     <header>
+        <button class="logout-btn" onclick="cerrarSesion()">CERRAR SESIÓN</button>
         <h1>Detergentes <span>K & J</span></h1>
         <div class="industrial-line"></div>
         <p class="slogan">Innovación y Limpieza en Cada Gota</p>
@@ -117,7 +131,14 @@
     <footer>&copy; 2026 Detergentes K & J | Sistema para jdiaz</footer>
 
     <script>
-        // Fórmulas actualizadas según el resumen de 1 Litro (cantidades en gramos/litros)
+        // --- FUNCIÓN PARA CERRAR SESIÓN ---
+        function cerrarSesion() {
+            localStorage.removeItem('acceso_permitido');
+            localStorage.removeItem('usuario_actual');
+            window.location.href = "login.html";
+        }
+
+        // Fórmulas de productos
         const formulas = {
             lavaplatos: [
                 {n:"Agua", b:0.870}, {n:"Ácido Sulfónico 97%", b:0.045}, {n:"Genapol Pasta 70%", b:0.045},
@@ -168,7 +189,6 @@
                 let unidad = "Kg/L";
                 let valorFormateado = total.toFixed(3);
 
-                // Si el resultado es menor a 1 Kg, mostrarlo en gramos para precisión
                 if (total < 1 && total > 0) {
                     valorFormateado = (total * 1000).toFixed(1);
                     unidad = "gramos/ml";
