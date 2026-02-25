@@ -6,7 +6,7 @@
     <title>Acceso K & J | jdiaz</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
     <style>
-        /* Bloqueo de selección de texto y cursor para evitar copiado */
+        /* Bloqueo de selección de texto */
         * {
             user-select: none;
             -webkit-user-select: none;
@@ -16,15 +16,60 @@
 
         body {
             margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
-            background: #0f172a; color: white;
+            background: #0f172a; /* Fondo oscuro de seguridad */
+            color: white;
             display: flex; justify-content: center; align-items: center; height: 100vh;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* --- FONDO DE IMAGEN MEJORADO --- */
+        .bg-image {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* Imagen de alta calidad de limpieza/detergentes */
+            background-image: url('https://images.unsplash.com/photo-1558444479-c84851827122?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6; /* Visibilidad equilibrada */
+            filter: blur(2px);
+            z-index: -2;
+        }
+
+        /* Capa de seguridad para legibilidad */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.4) 100%);
+            z-index: -1;
+        }
+
+        /* --- BURBUJAS ANIMADAS (CSS PURO) --- */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(89, 108, 232, 0.554);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite ease-in;
+            z-index: -1;
+        }
+
+        @keyframes rise {
+            0% { bottom: -100px; transform: translateX(0); }
+            50% { transform: translateX(50px); }
+            100% { bottom: 110vh; transform: translateX(-50px); }
         }
 
         .login-box {
-            background: #1e293b; padding: 40px; border-radius: 15px;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 40px; border-radius: 15px;
             border: 2px solid #38bdf8; text-align: center; width: 320px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
         h2 { color: #38bdf8; text-transform: uppercase; margin-bottom: 5px; font-weight: 900; }
@@ -34,7 +79,7 @@
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
             border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
             outline: none; font-size: 1rem;
-            user-select: text !important; /* Permite escribir específicamente aquí */
+            user-select: text !important;
         }
 
         input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.5); }
@@ -48,39 +93,71 @@
         .btn-login:hover { background: #0ea5e9; transform: scale(1.02); }
         
         #errorMsg { color: #ef4444; font-size: 0.85rem; display: none; margin-top: 15px; font-weight: bold; }
+
+        #listaPrecios table { font-size: 0.8rem; margin-top: 10px; }
     </style>
 </head>
-<body oncontextmenu="return false;"> <div class="login-box">
-        <h2>SISTEMA K & J</h2>
+<body oncontextmenu="return false;"> 
+    
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="bubble" style="width:40px; height:40px; left:10%; animation-duration:8s;"></div>
+    <div class="bubble" style="width:20px; height:20px; left:20%; animation-duration:12s; animation-delay:2s;"></div>
+    <div class="bubble" style="width:50px; height:50px; left:70%; animation-duration:15s; animation-delay:1s;"></div>
+    <div class="bubble" style="width:30px; height:30px; left:85%; animation-duration:10s; animation-delay:4s;"></div>
+
+    <div class="login-box">
+        <h2>DETERGENTES K & J</h2>
         <div class="subtitle">CONTROL DE ACCESO INDUSTRIAL</div>
         
         <input type="text" id="userInput" placeholder="Usuario" autocomplete="off" spellcheck="false">
         <input type="password" id="passInput" placeholder="Contraseña">
         
         <button class="btn-login" onclick="validarYEntrar()">Entrar al Panel</button>
+
+        <button class="btn-login" style="background:#22d3ee; color:#0f172a; margin-top:10px;" onclick="mostrarListaPrecios()">Consulta tu lista de precios</button>
+
+        <div id="listaPrecios" style="display:none; margin-top:20px; max-height: 150px; overflow-y: auto;">
+            <table style="width:100%; border-collapse:collapse; background:#0f172a; color:white;">
+                <thead>
+                    <tr style="background:#38bdf8; color:#0f172a;">
+                        <th style="padding:6px; border-radius:6px 0 0 6px;">Producto</th>
+                        <th style="padding:6px;">Mayor</th>
+                        <th style="padding:6px; border-radius:0 6px 6px 0;">Detal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ariel</td><td>420</td><td>550</td></tr>
+                    <tr><td>Cera</td><td>420</td><td>550</td></tr>
+                    <tr><td>Cloro</td><td>100</td><td>150</td></tr>
+                    <tr><td>Desengrasante</td><td>420</td><td>550</td></tr>
+                    <tr><td>Desinfectante</td><td>160</td><td>200</td></tr>
+                    <tr><td>Jabón Líquido</td><td>160</td><td>200</td></tr>
+                    <tr><td>Lavaplatos</td><td>420</td><td>550</td></tr>
+                    <tr><td>Suavizante</td><td>280</td><td>350</td></tr>
+                </tbody>
+            </table>
+        </div>
         
         <p id="errorMsg">⚠️ CREDENCIALES INCORRECTAS</p>
     </div>
 
     <script>
-        // --- BLOQUEO DE HERRAMIENTAS DE DESARROLLO (F12, Ctrl+U, etc) ---
+        function mostrarListaPrecios() {
+            var lista = document.getElementById('listaPrecios');
+            lista.style.display = (lista.style.display === 'none') ? 'block' : 'none';
+        }
+
         document.onkeydown = function(e) {
-            if(e.keyCode == 123 || 
-              (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
-              (e.ctrlKey && e.keyCode == 85)) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
 
-        // --- BASE DE DATOS DE USUARIOS ---
         const USUARIOS_AUTORIZADOS = {
             "admin": "admin",
             "cliente1": "KJ99Alpha",
-            "cliente2": "Zeta2026KJ",
-            "cliente3": "Beta44XyZ",
-            "cliente4": "KJ99Al9ha",
-            "cliente5": "Ze5a202gKJ",
-            "cliente6": "Beta44X44",
             "jdiaz": "Jhonny24KJ"
         };
 
@@ -90,11 +167,8 @@
             const error = document.getElementById('errorMsg');
 
             if (USUARIOS_AUTORIZADOS[user] && USUARIOS_AUTORIZADOS[user] === pass) {
-                // Generar sesión en el navegador
                 localStorage.setItem('acceso_permitido', 'true');
                 localStorage.setItem('usuario_actual', user);
-                
-                // Redirección a la pantalla de detergentes (index.html)
                 window.location.href = "index.html";
             } else {
                 error.style.display = 'block';
@@ -102,19 +176,12 @@
             }
         }
 
-        // Permitir entrada con la tecla Enter
         document.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarYEntrar();
-            }
+            if (e.key === 'Enter') { validarYEntrar(); }
         });
 
-        // Anti-Consola: Limpia el log constantemente
-        setInterval(function() {
-            console.clear();
-        }, 500);
+        setInterval(function() { console.clear(); }, 500);
 
-        // Bloqueo por redimensionamiento (si intentan abrir la consola lateral)
         window.onresize = function() {
             if ((window.outerHeight - window.innerHeight) > 200 || (window.outerWidth - window.innerWidth) > 200) {
                 document.body.innerHTML = "<h2 style='color:white; text-align:center; margin-top:20%;'>Acceso denegado: Seguridad activa.</h2>";
