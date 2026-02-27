@@ -109,14 +109,16 @@
 
     <div class="login-box">
         <h2>DETERGENTES K & J</h2>
-        <div class="subtitle">CONTROL DE ACCESO INDUSTRIAL</div>
-        
+        <div class="subtitle">Control de Acceso para ver </div>
+        <div class="subtitle"> nuestras formulas</div>
         <input type="text" id="userInput" placeholder="Usuario" autocomplete="off" spellcheck="false">
         <input type="password" id="passInput" placeholder="Contraseña">
         
         <button class="btn-login" onclick="validarYEntrar()">Entrar al Panel</button>
 
         <button class="btn-login" style="background:#22d3ee; color:#0f172a; margin-top:10px;" onclick="mostrarListaPrecios()">Consulta tu lista de precios</button>
+        
+        <button class="btn-login" style="background:#10b981; color:white; margin-top:10px;" onclick="window.location.href='compra.html'">🛒 Comprar Artículos</button>
 
         <div id="listaPrecios" style="display:none; margin-top:20px; max-height: 250px; overflow-y: auto;">
             <table style="width:100%; border-collapse:collapse; background:#0f172a; color:white;">

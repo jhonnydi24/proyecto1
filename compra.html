@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Inteligente - DETERGENTES K & J</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 20px; background: #f1f5f9; color: #1e293b; }
+        .pedido-container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #38bdf8; text-align: center; text-transform: uppercase; font-weight: 900; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { text-align: center; padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #38bdf8; color: white; text-transform: uppercase; font-size: 0.85rem; }
+        td:first-child { text-align: left; font-weight: 500; }
+        .cantidad-input { width: 60px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 5px; text-align: center; }
+        .total-compra-box { background-color: #0f172a; color: white; padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 1.3rem; font-weight: 900; border: 2px solid #38bdf8; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .detal-badge { background: #e2e8f0; color: #475569; }
+        .mayor-badge { background: #10b981; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="pedido-container">
+        <h1>Formulario de Pedido</h1>
+        <p style="text-align:center; color: #64748b;">(Precios al Mayor automáticos a partir de 10 unidades)</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>P. Detal</th>
+                    <th>P. Mayor</th>
+                    <th>Cantidad</th>
+                    <th>Tipo</th>
+                    <th>Subtotal (Bs.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-detal="550" data-mayor="420">
+                    <td>Ariel</td>
+                    <td>550</td><td>420</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="550" data-mayor="420">
+                    <td>Cera</td>
+                    <td>550</td><td>420</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="150" data-mayor="100">
+                    <td>Cloro</td>
+                    <td>150</td><td>100</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="550" data-mayor="420">
+                    <td>Desengrasante</td>
+                    <td>550</td><td>420</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="200" data-mayor="160">
+                    <td>Desinfectante</td>
+                    <td>200</td><td>160</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="200" data-mayor="160">
+                    <td>Jabón Líquido</td>
+                    <td>200</td><td>160</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="550" data-mayor="420">
+                    <td>Lavaplatos</td>
+                    <td>550</td><td>420</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+                <tr data-detal="350" data-mayor="280">
+                    <td>Suavizante</td>
+                    <td>350</td><td>280</td>
+                    <td><input type="number" class="cantidad-input" value="0" min="0" oninput="calcular()"></td>
+                    <td><span class="badge detal-badge">Detal</span></td>
+                    <td><span class="subtotal">0.00</span> Bs.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-compra-box">
+            <span>TOTAL FINAL:</span>
+            <span><span id="totalFinal">0.00</span> Bs.</span>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            let totalGeneral = 0;
+            const filas = document.querySelectorAll('tbody tr');
+
+            filas.forEach(fila => {
+                const pDetal = parseFloat(fila.getAttribute('data-detal'));
+                const pMayor = parseFloat(fila.getAttribute('data-mayor'));
+                const input = fila.querySelector('.cantidad-input');
+                const badge = fila.querySelector('.badge');
+                const subLabel = fila.querySelector('.subtotal');
+
+                let cant = parseInt(input.value) || 0;
+                let precioAplicado = (cant >= 10) ? pMayor : pDetal;
+
+                // Actualizar visualmente el tipo de precio
+                if (cant >= 10) {
+                    badge.textContent = "AL MAYOR";
+                    badge.className = "badge mayor-badge";
+                } else {
+                    badge.textContent = "DETAL";
+                    badge.className = "badge detal-badge";
+                }
+
+                let subtotal = cant * precioAplicado;
+                subLabel.textContent = subtotal.toFixed(2);
+                totalGeneral += subtotal;
+            });
+
+            document.getElementById('totalFinal').textContent = totalGeneral.toFixed(2);
+        }
+    </script>
+</body>
+</html>
